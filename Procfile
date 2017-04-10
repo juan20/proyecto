@@ -1,0 +1,1 @@
+web: gunicorn juan.wsgi -b 0.0.0.0:$PORT

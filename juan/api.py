@@ -1,30 +1,31 @@
 from tastypie.resources import ModelResource,Resource
 from tastypie.authorization import Authorization
-from tastypie.constants import ALL
+from tastypie.constants import ALL, ALL_WITH_RELATIONS
 import time
 from tastypie import fields
 from main.models import *
 import urllib3,ast,re
 
-class SaveDatabase(ModelResource):
+class EntryResource(ModelResource):
      
 
 	class Meta:
 		queryset = Information.objects.all()
-		resource_name = 'save'
-		limit = 0
-		authorization= Authorization()
-		list_allowed_methods = ['post']
+        resource_name = 'entry'
+        authorization= Authorization()
+        list_allowed_methods = ['get']
+
+	
 
 
 	def dehydrate(self,bundle):
 
-		begintime = str(bundle.request.GET['begintime'])
-		endtime = str(bundle.request.GET['endtime'])
-		budget = int(bundle.request.GET['limit'])
-		city = bundle.request.GET['city']
-		preferences = re.split('[\[,\,,\',\]]',bundle.request.GET['preferences'])
-		while '' in preferences: preferences.remove('')
-		result = createOffersToUser(datetime.datetime.strptime(begintime,"%Y-%m-%d %H:%M:%S"), datetime.datetime.strptime(endtime,"%Y-%m-%d %H:%M:%S"),budget,Tblcity.objects.get(cityname = city),preferences,{"Adult":1})
-
-		return result
+		date = datetime.strptime(bundle.request.GET['dat'], '%d-%m-%Y')
+		sensor_sound = bool(bundle.request.GET['sound'])
+		sensor_mod = bool(bundle.request.GET['mod'])
+		
+		
+		info = Information(date = date,sensor_mod = sensor_mod,sensor_sound = sensor_sound)
+		info.save()
+		
+		return "klk"

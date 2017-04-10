@@ -6,8 +6,7 @@ from django.db import models
 class Information(models.Model):
     
     id_information = models.AutoField(primary_key=True)
-    date = models.DateField()
+    date = models.DateTimeField()
     sensor_mod = models.BooleanField(default=False)
     sensor_sound = models.BooleanField(default=False)
-	
 	

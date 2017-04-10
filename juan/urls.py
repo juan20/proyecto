@@ -18,11 +18,10 @@ from django.contrib import admin
 from tastypie.api import Api
 from juan.api import *
 
-offer_api = Api(api_name='save')
 
-offer_api.register(SaveDatabase())
+entry_resource = EntryResource()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(offer_api.urls)),
+    url(r'^api/', include(entry_resource.urls)),
 ]
