@@ -26,5 +26,9 @@ class EntryResource(ModelResource):
 		
 		info = Information(date = date,sensor_mod = sensor_mod,sensor_sound = sensor_sound)
 		info.save()
-
-		return bundle
+		i = Information.objects.latest('id_information')
+		# obj = Information.objects.get(id_information=latest_id.id_information)
+		
+		print {'id_information':i.id_information,'date':i.date,'sensor_mod':i.sensor_mod,'sensor_sound':i.sensor_sound}
+		return {'id_information':i.id_information,'date':i.date,'sensor_mod':i.sensor_mod,'sensor_sound':i.sensor_sound}
+		
