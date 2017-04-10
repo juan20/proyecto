@@ -27,4 +27,4 @@ class EntryResource(ModelResource):
 		info = Information(date = date,sensor_mod = sensor_mod,sensor_sound = sensor_sound)
 		info.save()
 
-		return "klk"
+		return bundle
