@@ -19,7 +19,7 @@ class EntryResource(ModelResource):
 
 	def dehydrate(self,bundle):
 
-		date = datetime.strptime(bundle.request.GET['dat'], '%d-%m-%Y')
+		date = str(bundle.request.GET['dat'])
 		sensor_sound = bool(bundle.request.GET['sound'])
 		sensor_mod = bool(bundle.request.GET['mod'])
 		
