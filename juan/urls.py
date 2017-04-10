@@ -20,8 +20,10 @@ from juan.api import *
 
 
 entry_resource = EntryResource()
+receive_resource = ReceiveResource()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(entry_resource.urls)),
+    url(r'^api/', include(receive_resource.urls)),
 ]
