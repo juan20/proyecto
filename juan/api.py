@@ -4,7 +4,6 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 import time
 from tastypie import fields
 from main.models import *
-import urllib3,ast,re
 
 class EntryResource(ModelResource):
      
@@ -27,5 +26,5 @@ class EntryResource(ModelResource):
 		
 		info = Information(date = date,sensor_mod = sensor_mod,sensor_sound = sensor_sound)
 		info.save()
-		
+
 		return "klk"
