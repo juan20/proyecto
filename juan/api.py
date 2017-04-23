@@ -20,7 +20,7 @@ class EntryResource(ModelResource):
 	def dehydrate(self,bundle):
 
 		date = str(bundle.request.GET['dat'])
-		sensor_sound = bool(bundle.request.GET['sound'])
+		sensor_sound = int(bundle.request.GET['sound'])
 		sensor_mod = bool(bundle.request.GET['mod'])
 		
 		
@@ -33,16 +33,7 @@ class ReceiveResource(ModelResource):
      
 
 	class Meta:
-		queryset = Information.objects.all()
+		queryset = Information.objects.all().order_by('-id_information')
         resource_name = 'receive'
         authorization= Authorization()
         list_allowed_methods = ['get']
-
-
-	def dehydrate(self,bundle):
-
-		i = Information.objects.latest('id_information')
-		
-		print {'id_information':i.id_information,'date':i.date,'sensor_mod':i.sensor_mod,'sensor_sound':i.sensor_sound}
-		return {'id_information':i.id_information,'date':i.date,'sensor_mod':i.sensor_mod,'sensor_sound':i.sensor_sound}
-		

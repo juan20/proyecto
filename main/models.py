@@ -8,5 +8,5 @@ class Information(models.Model):
     id_information = models.AutoField(primary_key=True)
     date = models.TextField()
     sensor_mod = models.BooleanField(default=False)
-    sensor_sound = models.BooleanField(default=False)
+    sensor_sound = models.IntegerField(default=False)
 	
