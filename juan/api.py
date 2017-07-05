@@ -6,34 +6,36 @@ from tastypie import fields
 from main.models import *
 
 class EntryResource(ModelResource):
-     
+
 
 	class Meta:
+
 		queryset = Information.objects.all()
-        resource_name = 'entry'
-        authorization= Authorization()
-        list_allowed_methods = ['get']
+		resource_name = 'entry'
+		authorization = Authorization()
+		list_allowed_methods = ['get']
 
 	
 
 
-	def dehydrate(self,bundle):
+	def dehydrate(self, bundle):
 
 		date = str(bundle.request.GET['dat'])
 		sensor_sound = int(bundle.request.GET['sound'])
 		sensor_mod = bool(bundle.request.GET['mod'])
 		
 		
-		info = Information(date = date,sensor_mod = sensor_mod,sensor_sound = sensor_sound)
+		info = Information(date = date, sensor_mod = sensor_mod, sensor_sound = sensor_sound)
 		info.save()
-		
-		return "SAVED"
+
+		return super(EntryResource, self).save(*args, **kwargs)
+
 		
 class ReceiveResource(ModelResource):
-     
+
 
 	class Meta:
 		queryset = Information.objects.all().order_by('-id_information')
-        resource_name = 'receive'
-        authorization= Authorization()
-        list_allowed_methods = ['get']
+		resource_name = 'receive'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
