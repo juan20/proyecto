@@ -15,33 +15,30 @@ class InformationEntryResource(ModelResource):
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
-	
-
-
 	def dehydrate(self, bundle):
 
 		date = str(bundle.request.GET['dat'])
 		sensor_sound = int(bundle.request.GET['sound'])
 		sensor_mod = bool(bundle.request.GET['mod'])
 		mac = str(bundle.request.GET['mc'])
-		id_empresa = int(bundle.request.GET['ide'])
+		id_empresa = str(bundle.request.GET['ide'])
 		
-		info = Information(date = date, sensor_mod = sensor_mod, sensor_sound = sensor_sound, mac= mac, id_empresa= id_empresa)
+		mac_obj = Xbee.objects.filter(mac=mac)[0]
+		empresa_obj = Empresa.objects.filter(nombre=id_empresa)[0]
+		
+		info = Information(date = date, sensor_mod = sensor_mod, sensor_sound = sensor_sound, mac = mac_obj, id_empresa = empresa_obj)
 		info.save()
 
-		return super(InformationEntryResource, self).save(*args, **kwargs)
+		return bundle
 
 class XbeeEntryResource(ModelResource):
-
 
 	class Meta:
 
 		queryset = Xbee.objects.all()
-		resource_name = 'entry'
+		resource_name = 'xbee'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
-
-	
 
 
 	def dehydrate(self, bundle):
@@ -50,11 +47,10 @@ class XbeeEntryResource(ModelResource):
 		red = str(bundle.request.GET['net'])
 		tipo = str(bundle.request.GET['tip'])
 		
-		
 		xb = Xbee(mac = mac, red = red, tipo = tipo)
 		xb.save()
 
-		return super(XbeeEntryResource, self).save(*args, **kwargs)
+		return bundle
 
 class UsuarioEntryResource(ModelResource):
 
@@ -62,11 +58,9 @@ class UsuarioEntryResource(ModelResource):
 	class Meta:
 
 		queryset = usuario.objects.all()
-		resource_name = 'entry'
+		resource_name = 'usuario'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
-
-	
 
 
 	def dehydrate(self, bundle):
@@ -77,11 +71,12 @@ class UsuarioEntryResource(ModelResource):
 		priv = int(bundle.request.GET['pri'])
 		passw = str(bundle.request.GET['pas'])
 		id_empresa = int(bundle.request.GET['ide'])
+		empresa_obj = Empresa.objects.filter(nombre=id_empresa)[0]
 		
-		user = usuario(nombre = nombre, apellido = apellido, usuar = usuario, priv = privilegio, passw = password, id_empresa= id_empresa)
+		user = usuario(nombre = nombre, apellido = apellido, username = usuar, privilegio = privilegio, password = passw, id_empresa = empresa_obj)
 		user.save()
 
-		return super(UsuarioEntryResource, self).save(*args, **kwargs)
+		return bundle
 
 class EmpresaEntryResource(ModelResource):
 
@@ -89,25 +84,20 @@ class EmpresaEntryResource(ModelResource):
 	class Meta:
 
 		queryset = Empresa.objects.all()
-		resource_name = 'entry'
+		resource_name = 'empresa'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
-
-	
 
 
 	def dehydrate(self, bundle):
 
 		nombre = str(bundle.request.GET['name'])
-		cant = int(bundle.request.GET['can'])
-		
-		
-		
-		emp = Empresa(nombre = nombre, cant = cantidad_usuarios)
+		cant = int(bundle.request.GET['can'])		
+		emp = Empresa(nombre = nombre, cantidad_usuarios = cantidad_usuarios)
 		emp.save()
 
-		return super(EmpresaEntryResource, self).save(*args, **kwargs)
-		
+		return bundle
+
 class ReceiveResource(ModelResource):
 
 

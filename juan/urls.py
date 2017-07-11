@@ -24,15 +24,21 @@ from juan.api import *
 
 from main.views import index
 
-entry_resource = EntryResource()
+entry_resource = InformationEntryResource()
 receive_resource = ReceiveResource()
+xbee_resource = XbeeEntryResource()
+usuario_resource = UsuarioEntryResource()
+empresa_resource = EmpresaEntryResource()
 
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', include(admin.site.urls)),
-
-    # url(r'^api/', include(receive_resource.urls)),
-    # url(r'^api/', include(entry_resource.urls)),
+    url(r'^api/', include(receive_resource.urls)),
+    url(r'^api/', include(entry_resource.urls)),
+    url(r'^api/', include(xbee_resource.urls)),
+    url(r'^api/', include(usuario_resource.urls)),
+    url(r'^api/', include(empresa_resource.urls)),
     url(r'^$', index),
 ] + staticfiles_urlpatterns()
+
