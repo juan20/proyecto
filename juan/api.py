@@ -70,10 +70,10 @@ class UsuarioEntryResource(ModelResource):
 		usuar = str(bundle.request.GET['use'])
 		priv = int(bundle.request.GET['pri'])
 		passw = str(bundle.request.GET['pas'])
-		id_empresa = int(bundle.request.GET['ide'])
+		id_empresa = str(bundle.request.GET['ide'])
 		empresa_obj = Empresa.objects.filter(nombre=id_empresa)[0]
 		
-		user = usuario(nombre = nombre, apellido = apellido, username = usuar, privilegio = privilegio, password = passw, id_empresa = empresa_obj)
+		user = usuario(nombre = nombre, apellido = apellido, username = usuar, privilegio = priv, password = passw, id_empresa = empresa_obj)
 		user.save()
 
 		return bundle
@@ -91,7 +91,7 @@ class UserResource(ModelResource):
 	def dehydrate(self, bundle):
 
 		user = str(bundle.request.GET['usr'])
-		pasw = int(bundle.request.GET['pasw'])
+		pasw = str(bundle.request.GET['pasw'])
 		usr = usuario.objects.filter(username = user, password = pasw)[0]
 		result = {}
 		result['nombre'] = usr.nombre
@@ -140,7 +140,7 @@ class EmpresaEntryResource(ModelResource):
 
 		nombre = str(bundle.request.GET['name'])
 		cant = int(bundle.request.GET['can'])		
-		emp = Empresa(nombre = nombre, cantidad_usuarios = cantidad_usuarios)
+		emp = Empresa(nombre = nombre, cantidad_usuarios = cant )
 		emp.save()
 
 		return bundle
