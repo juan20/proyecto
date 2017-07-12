@@ -77,6 +77,53 @@ class UsuarioEntryResource(ModelResource):
 		user.save()
 
 		return bundle
+		
+class UserResource(ModelResource):
+
+
+	class Meta:
+
+		queryset = usuario.objects.all()
+		resource_name = 'user'
+		authorization = Authorization()
+		list_allowed_methods = ['get']
+
+	def dehydrate(self, bundle):
+
+		user = str(bundle.request.GET['usr'])
+		pasw = int(bundle.request.GET['pasw'])
+		usr = usuario.objects.filter(username = user, password = pasw)[0]
+		result = {}
+		result['nombre'] = usr.nombre
+		result['apellido'] = usr.apellido
+		result['privilegio'] = usr.privilegio
+		result['xbees'] = []
+		result['informations'] = []
+
+		if usr.privilegio == 3:
+			
+			result['empresas'] = []
+
+			for i in Empresa.objects.all():
+				result['empresas'].append(i.__dict__)
+			for i in Xbee.objects.all():
+				result['xbees'].append(i.__dict__)
+			for i in Information.objects.all():
+				result['informations'].append(i.__dict__)
+		else:
+
+			result['empresa'] = usr.id_empresa.nombre
+
+			for i in Information.objects.filter(id_empresa = usr.id_empresa.id_empresa):
+				result['informations'] = i.__dict__
+				mac = Xbee.objects.filter(mac = i.mac)
+				
+				if mac.__dict__ not in result['xbees']:
+					result['xbees'].append(mac.__dict__)
+		
+
+		return result
+
 
 class EmpresaEntryResource(ModelResource):
 

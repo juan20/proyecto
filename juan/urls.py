@@ -28,6 +28,7 @@ entry_resource = InformationEntryResource()
 receive_resource = ReceiveResource()
 xbee_resource = XbeeEntryResource()
 usuario_resource = UsuarioEntryResource()
+usario_receive = UserResource()
 empresa_resource = EmpresaEntryResource()
 
 urlpatterns = [
@@ -39,6 +40,7 @@ urlpatterns = [
     url(r'^api/', include(xbee_resource.urls)),
     url(r'^api/', include(usuario_resource.urls)),
     url(r'^api/', include(empresa_resource.urls)),
+    url(r'^api/', include(usario_receive.urls)),
     url(r'^$', index),
 ] + staticfiles_urlpatterns()
 
