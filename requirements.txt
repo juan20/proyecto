@@ -2,3 +2,4 @@ django
 django-tastypie
 South
 gunicorn
+django-jet
