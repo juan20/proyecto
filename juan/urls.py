@@ -29,6 +29,8 @@ from main.views import index
 modulo_resource = ModulosResource()
 negocio_resource = NegocioResource()
 area_resource = AreaResource()
+estado_resource = EstadoResource()
+
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
@@ -36,6 +38,7 @@ urlpatterns = [
     url(r'^api/', include(modulo_resource.urls)),
     url(r'^api/', include(negocio_resource.urls)),
     url(r'^api/', include(area_resource.urls)),
+    url(r'^api/', include(estado_resource.urls)),
     url(r'^$', index),
 
 ] + staticfiles_urlpatterns()

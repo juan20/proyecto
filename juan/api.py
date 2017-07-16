@@ -84,7 +84,7 @@ class EstadoResource(ModelResource):
 
 	class Meta:
 
-		queryset = Negocio.objects.all()
+		queryset = Area.objects.all()
 		resource_name = 'estado'
 		authorization = Authorization()
 		list_allowed_methods = ['post']
