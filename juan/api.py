@@ -5,151 +5,100 @@ import time
 from tastypie import fields
 from main.models import *
 
-class InformationEntryResource(ModelResource):
+class ModulosResource(ModelResource):
 
 
 	class Meta:
 
-		queryset = Information.objects.all()
-		resource_name = 'entry'
+		queryset = Area.objects.all()
+		resource_name = 'modulo'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
 	def dehydrate(self, bundle):
 
-		date = str(bundle.request.GET['dat'])
-		sensor_sound = int(bundle.request.GET['sound'])
-		sensor_mod = bool(bundle.request.GET['mod'])
-		mac = str(bundle.request.GET['mc'])
-		id_empresa = str(bundle.request.GET['ide'])
-		
-		mac_obj = Xbee.objects.filter(mac=mac)[0]
-		empresa_obj = Empresa.objects.filter(nombre=id_empresa)[0]
-		
-		info = Information(date = date, sensor_mod = sensor_mod, sensor_sound = sensor_sound, mac = mac_obj, id_empresa = empresa_obj)
-		info.save()
-
-		return bundle
-
-class XbeeEntryResource(ModelResource):
-
-	class Meta:
-
-		queryset = Xbee.objects.all()
-		resource_name = 'xbee'
-		authorization = Authorization()
-		list_allowed_methods = ['get']
-
-
-	def dehydrate(self, bundle):
-
-		mac = str(bundle.request.GET['mc'])
-		red = str(bundle.request.GET['net'])
-		tipo = str(bundle.request.GET['tip'])
-		
-		xb = Xbee(mac = mac, red = red, tipo = tipo)
-		xb.save()
-
-		return bundle
-
-class UsuarioEntryResource(ModelResource):
-
-
-	class Meta:
-
-		queryset = usuario.objects.all()
-		resource_name = 'usuario'
-		authorization = Authorization()
-		list_allowed_methods = ['get']
-
-
-	def dehydrate(self, bundle):
-
-		nombre = str(bundle.request.GET['name'])
-		apellido = str(bundle.request.GET['last'])
-		usuar = str(bundle.request.GET['use'])
-		priv = int(bundle.request.GET['pri'])
-		passw = str(bundle.request.GET['pas'])
-		id_empresa = str(bundle.request.GET['ide'])
-		empresa_obj = Empresa.objects.filter(nombre=id_empresa)[0]
-		
-		user = usuario(nombre = nombre, apellido = apellido, username = usuar, privilegio = priv, password = passw, id_empresa = empresa_obj)
-		user.save()
-
-		return bundle
-		
-class UserResource(ModelResource):
-
-
-	class Meta:
-
-		queryset = usuario.objects.all()
-		resource_name = 'user'
-		authorization = Authorization()
-		list_allowed_methods = ['get']
-
-	def dehydrate(self, bundle):
-
-		user = str(bundle.request.GET['usr'])
-		pasw = str(bundle.request.GET['pasw'])
-		usr = usuario.objects.filter(username = user, password = pasw)[0]
+		negocio = int(bundle.request.GET['idne'])
+		area = Area.objects.filter(id_negocio = negocio)
 		result = {}
-		result['nombre'] = usr.nombre
-		result['apellido'] = usr.apellido
-		result['privilegio'] = usr.privilegio
-		result['xbees'] = []
-		result['informations'] = []
+		result['modulos'] = []
 
-		if usr.privilegio == 3:
-			
-			result['empresas'] = []
+		for i in area:
+			aux = {}
+			aux ['id'] = area.id_area
+			aux ['nombre'] = area.nombre
+			aux ['estado'] = area.estado
+			result['modulos'].append(aux)
 
-			for i in Empresa.objects.all():
-				result['empresas'].append(i.__dict__)
-			for i in Xbee.objects.all():
-				result['xbees'].append(i.__dict__)
-			for i in Information.objects.all():
-				result['informations'].append(i.__dict__)
-		else:
-
-			result['empresa'] = usr.id_empresa.nombre
-
-			for i in Information.objects.filter(id_empresa = usr.id_empresa.id_empresa):
-				result['informations'] = i.__dict__
-				mac = Xbee.objects.filter(mac = i.mac)
-				
-				if mac.__dict__ not in result['xbees']:
-					result['xbees'].append(mac.__dict__)
-		
 
 		return result
 
-
-class EmpresaEntryResource(ModelResource):
+class NegocioResource(ModelResource):
 
 
 	class Meta:
 
-		queryset = Empresa.objects.all()
-		resource_name = 'empresa'
+		queryset = Negocio.objects.all()
+		resource_name = 'negocio'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
-
 	def dehydrate(self, bundle):
 
-		nombre = str(bundle.request.GET['name'])
-		cant = int(bundle.request.GET['can'])		
-		emp = Empresa(nombre = nombre, cantidad_usuarios = cant )
-		emp.save()
+		negocio = int(bundle.request.GET['idne'])
+		neg = Negocio.objects.filter(id_negocio = negocio)[0]
+		result = {}
+		result['nombre'] = neg.nombre
+		result['latitud'] = neg.latitud
+		result['longitud'] = neg.longitud
+		sensores = Area.objects.filter(id_negocio = negocio)
+		result['sensores'] = len(sensores)
+		result['servidores'] = 2
 
-		return bundle
 
-class ReceiveResource(ModelResource):
+
+		return result
+
+class AreaResource(ModelResource):
 
 
 	class Meta:
-		queryset = Information.objects.all().order_by('-id_information')
-		resource_name = 'receive'
-		authorization= Authorization()
-		list_allowed_methods = ['get']
+
+		queryset = Area.objects.all()
+		resource_name = 'area'
+		authorization = Authorization()
+		list_allowed_methods = ['post']
+
+	def dehydrate(self, bundle):
+
+		area = int(bundle.request.GET['ida'])
+		estad = str(bundle.request.GET['est'])
+		Area.objects.filter(id_area = area)[0] = estad
+		Area.estado = estad
+		result = {}
+		result['Estado'] = estad
+		return result
+
+
+class EstadoResource(ModelResource):
+
+
+	class Meta:
+
+		queryset = Negocio.objects.all()
+		resource_name = 'estado'
+		authorization = Authorization()
+		list_allowed_methods = ['post']
+
+	def dehydrate(self, bundle):
+
+		nego = int(bundle.request.GET['idne'])
+		area = Area.filter(id_negocio= nego)
+		aux = ""
+		for i in area:
+			if area.estado == "peligro":
+				aux = "Error"
+				break
+		result = {}
+		result['Estado'] = aux
+		return result
+

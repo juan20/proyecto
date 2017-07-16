@@ -20,27 +20,23 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from tastypie.api import Api
 from juan.api import *
+from jet.views import add_bookmark_view, remove_bookmark_view, toggle_application_pin_view, model_lookup_view
+
 
 
 from main.views import index
 
-entry_resource = InformationEntryResource()
-receive_resource = ReceiveResource()
-xbee_resource = XbeeEntryResource()
-usuario_resource = UsuarioEntryResource()
-usario_receive = UserResource()
-empresa_resource = EmpresaEntryResource()
-
+modulo_resource = ModulosResource()
+negocio_resource = NegocioResource()
+area_resource = AreaResource()
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include(receive_resource.urls)),
-    url(r'^api/', include(entry_resource.urls)),
-    url(r'^api/', include(xbee_resource.urls)),
-    url(r'^api/', include(usuario_resource.urls)),
-    url(r'^api/', include(empresa_resource.urls)),
-    url(r'^api/', include(usario_receive.urls)),
+    url(r'^api/', include(modulo_resource.urls)),
+    url(r'^api/', include(negocio_resource.urls)),
+    url(r'^api/', include(area_resource.urls)),
     url(r'^$', index),
+
 ] + staticfiles_urlpatterns()
 
