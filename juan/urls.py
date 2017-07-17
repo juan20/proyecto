@@ -30,6 +30,14 @@ modulo_resource = ModulosResource()
 negocio_resource = NegocioResource()
 area_resource = AreaResource()
 estado_resource = EstadoResource()
+recive_sensor_resource = ReceiveSensorResource()
+recive_area_resource = ReceiveAreaResource()
+recive_empleado_resource = ReceiveEmpleadoResource()
+recive_hasempleado_resource = ReceiveHasEmpleadoResource()
+recive_reloj_resource = ReceiveRelojResource()
+recive_negocio_resource = ReceiveNegocioResource()
+recive_credencial_resource = ReceiveCredencialResource()
+recive_valores_resource = ReceiveValoresResource()
 
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
@@ -39,7 +47,15 @@ urlpatterns = [
     url(r'^api/', include(negocio_resource.urls)),
     url(r'^api/', include(area_resource.urls)),
     url(r'^api/', include(estado_resource.urls)),
+    url(r'^api/', include(recive_sensor_resource.urls)),
+    url(r'^api/', include(recive_area_resource.urls)),
+    url(r'^api/', include(recive_empleado_resource.urls)),
+    url(r'^api/', include(recive_hasempleado_resource.urls)),
+    url(r'^api/', include(recive_reloj_resource.urls)),
+    url(r'^api/', include(recive_negocio_resource.urls)),
+    url(r'^api/', include(recive_credencial_resource.urls)),
+    url(r'^api/', include(recive_valores_resource.urls)),
     url(r'^$', index),
-
+    
 ] + staticfiles_urlpatterns()
 

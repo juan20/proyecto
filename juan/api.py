@@ -102,3 +102,75 @@ class EstadoResource(ModelResource):
 		result['Estado'] = aux
 		return result
 
+class ReceiveSensorResource(ModelResource):
+
+
+	class Meta:
+		queryset = Sensor.objects.all()
+		resource_name = 'receive'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+class ReceiveAreaResource(ModelResource):
+
+
+	class Meta:
+		queryset = Area.objects.all()
+		resource_name = 'rarea'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+class ReceiveNegocioResource(ModelResource):
+
+
+	class Meta:
+		queryset = Negocio.objects.all()
+		resource_name = 'rnegocio'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+
+class ReceiveEmpleadoResource(ModelResource):
+
+
+	class Meta:
+		queryset = Empleado.objects.all()
+		resource_name = 'rempleado'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+class ReceiveValoresResource(ModelResource):
+
+
+	class Meta:
+		queryset = Valores.objects.all()
+		resource_name = 'rvalor'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+class ReceiveRelojResource(ModelResource):
+
+
+	class Meta:
+		queryset = Reloj.objects.all()
+		resource_name = 'rreloj'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+class ReceiveHasEmpleadoResource(ModelResource):
+
+
+	class Meta:
+		queryset = HasEmpleado.objects.all()
+		resource_name = 'rhasempleado'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
+
+class ReceiveCredencialResource(ModelResource):
+
+
+	class Meta:
+		queryset = Credencial.objects.all()
+		resource_name = 'rhasempleado'
+		authorization= Authorization()
+		list_allowed_methods = ['get']
