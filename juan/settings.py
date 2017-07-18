@@ -28,13 +28,13 @@ ALLOWED_HOSTS = [u'jjs.herokuapp.com', u'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    #'jet.dashboard',
-    'jet',
     'main',
 ]
 

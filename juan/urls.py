@@ -40,8 +40,6 @@ recive_credencial_resource = ReceiveCredencialResource()
 recive_valores_resource = ReceiveValoresResource()
 
 urlpatterns = [
-    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(modulo_resource.urls)),
     url(r'^api/', include(negocio_resource.urls)),
@@ -55,7 +53,9 @@ urlpatterns = [
     url(r'^api/', include(recive_negocio_resource.urls)),
     url(r'^api/', include(recive_credencial_resource.urls)),
     url(r'^api/', include(recive_valores_resource.urls)),
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^$', index),
-    
+
 ] + staticfiles_urlpatterns()
 

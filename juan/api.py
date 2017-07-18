@@ -18,15 +18,15 @@ class ModulosResource(ModelResource):
 	def dehydrate(self, bundle):
 
 		negocio = int(bundle.request.GET['idne'])
-		area = Area.objects.filter(id_negocio = negocio)
+		area = Area.objects.filter(id_negocio_id = negocio)
 		result = {}
 		result['modulos'] = []
 
 		for i in area:
 			aux = {}
-			aux ['id'] = area.id_area
-			aux ['nombre'] = area.nombre
-			aux ['estado'] = area.estado
+			aux ['id'] = i.id_area
+			aux ['nombre'] = i.nombre
+			aux ['estado'] = i.estado
 			result['modulos'].append(aux)
 
 
@@ -38,7 +38,7 @@ class NegocioResource(ModelResource):
 	class Meta:
 
 		queryset = Negocio.objects.all()
-		resource_name = 'negocio'
+		resource_name = '	'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
@@ -50,7 +50,7 @@ class NegocioResource(ModelResource):
 		result['nombre'] = neg.nombre
 		result['latitud'] = neg.latitud
 		result['longitud'] = neg.longitud
-		sensores = Area.objects.filter(id_negocio = negocio)
+		sensores = Area.objects.filter(id_negocio_id = negocio)
 		result['sensores'] = len(sensores)
 		result['servidores'] = 2
 
@@ -119,6 +119,20 @@ class ReceiveAreaResource(ModelResource):
 		resource_name = 'rarea'
 		authorization= Authorization()
 		list_allowed_methods = ['get']
+
+	def dehydrate(self, bundle):
+
+		
+		area = Area.objects.all()
+		result = {}
+		for i in area:
+			result['id_area'] = i.id_area
+			result['nombre'] = i.nombre
+			result['estado'] = i.estado
+			result['id_sensor'] = i.id_sensor_id
+			result['id_negocio'] = i.id_negocio_id
+
+		return result
 
 class ReceiveNegocioResource(ModelResource):
 
