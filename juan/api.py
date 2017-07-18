@@ -18,7 +18,7 @@ class ModulosResource(ModelResource):
 	def dehydrate(self, bundle):
 
 		negocio = int(bundle.request.GET['idne'])
-		area = Area.objects.filter(id_negocio_id = negocio)
+		area = Area.objects.filter(id_negocio = negocio)
 		result = {}
 		result['modulos'] = []
 
@@ -38,7 +38,7 @@ class NegocioResource(ModelResource):
 	class Meta:
 
 		queryset = Negocio.objects.all()
-		resource_name = '	'
+		resource_name = 'negocio'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
