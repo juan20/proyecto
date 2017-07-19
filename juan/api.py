@@ -66,17 +66,16 @@ class AreaResource(ModelResource):
 		queryset = Area.objects.all()
 		resource_name = 'area'
 		authorization = Authorization()
-		list_allowed_methods = ['post']
+		list_allowed_methods = ['post', 'get']
 
 	def dehydrate(self, bundle):
 
 		area = int(bundle.request.GET['ida'])
 		estad = str(bundle.request.GET['est'])
-		Area.objects.filter(id_area = area)[0] = estad
-		Area.estado = estad
-		result = {}
-		result['Estado'] = estad
-		return result
+		result = Area.objects.filter(id_area = area)[0] 
+		result.estado = estad
+		result.save() 
+		return result.estado
 
 
 class EstadoResource(ModelResource):
@@ -87,15 +86,15 @@ class EstadoResource(ModelResource):
 		queryset = Area.objects.all()
 		resource_name = 'estado'
 		authorization = Authorization()
-		list_allowed_methods = ['post']
+		list_allowed_methods = ['post', 'get']
 
 	def dehydrate(self, bundle):
 
 		nego = int(bundle.request.GET['idne'])
-		area = Area.filter(id_negocio= nego)
+		area = Area.objects.filter(id_negocio_id= nego)
 		aux = ""
 		for i in area:
-			if area.estado == "peligro":
+			if i.estado == "peligro":
 				aux = "Error"
 				break
 		result = {}
