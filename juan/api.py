@@ -184,6 +184,51 @@ class ReceiveCredencialResource(ModelResource):
 
 	class Meta:
 		queryset = Credencial.objects.all()
-		resource_name = 'rhasempleado'
+		resource_name = 'rcredencial'
 		authorization= Authorization()
 		list_allowed_methods = ['get']
+
+class AreaEntryResource(ModelResource):
+
+
+	class Meta:
+
+		queryset = Valores.objects.all()
+		resource_name = 'earea'
+		authorization = Authorization()
+		list_allowed_methods = ['get']
+
+	def dehydrate(self, bundle):
+
+		sensound = bool(bundle.request.GET['sound'])
+		senmod = bool(bundle.request.GET['mod'])
+		id_sensor = int(bundle.request.GET['ids'])
+		sensor = Sensor.objects.filter(id_sensor = id_sensor)[0]
+		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
+		valor.save() 
+
+		return bundle
+
+class CredencialCheckResource(ModelResource):
+
+
+	class Meta:
+
+		queryset = Credencial.objects.all()
+		resource_name = 'checre'
+		authorization = Authorization()
+		list_allowed_methods = ['get']
+
+	def dehydrate(self, bundle):
+
+		user = str(bundle.request.GET['use'])
+		pasw = str(bundle.request.GET['pas'])
+		esta = 'OK'	
+		credencia = Credencial.objects.filter(username = user)
+		if len(credencia) != 0:
+			if credencia[0].password != pasw:
+				esta = 'Password invalida'
+		else:
+			esta = 'Username invalido'
+
+		return esta

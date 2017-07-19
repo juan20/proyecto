@@ -38,6 +38,8 @@ recive_reloj_resource = ReceiveRelojResource()
 recive_negocio_resource = ReceiveNegocioResource()
 recive_credencial_resource = ReceiveCredencialResource()
 recive_valores_resource = ReceiveValoresResource()
+area_entry_resource = AreaEntryResource()
+crendial_check_resource = CredencialCheckResource()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -53,6 +55,8 @@ urlpatterns = [
     url(r'^api/', include(recive_negocio_resource.urls)),
     url(r'^api/', include(recive_credencial_resource.urls)),
     url(r'^api/', include(recive_valores_resource.urls)),
+    url(r'^api/', include(area_entry_resource.urls)),
+    url(r'^api/', include(crendial_check_resource.urls)),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^$', index),
