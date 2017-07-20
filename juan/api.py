@@ -2,7 +2,7 @@ from tastypie.resources import ModelResource,Resource
 from tastypie.authorization import Authorization
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 import time
-from tastypie import fields
+from tastypie import fields, utils
 from main.models import *
 
 class ModulosResource(ModelResource):
@@ -18,7 +18,7 @@ class ModulosResource(ModelResource):
 	def dehydrate(self, bundle):
 
 		negocio = int(bundle.request.GET['idne'])
-		area = Area.objects.filter(id_negocio = negocio)
+		area = Area.objects.filter(id_negocio_id = negocio)
 		result = {}
 		result['modulos'] = []
 
@@ -26,7 +26,11 @@ class ModulosResource(ModelResource):
 			aux = {}
 			aux ['id'] = i.id_area
 			aux ['nombre'] = i.nombre
-			aux ['estado'] = i.estado
+			senso = Sensor.objects.filter(id_sensor = i.id_sensor_id)[0]
+			valos = Valores.objects.filter(id_sensor = senso)
+			valo = valos.order_by('-id_valor')[0]
+			aux ['sensormov'] = valo.sensor_mod
+			aux ['sensorson'] = valo.sensor_sound
 			result['modulos'].append(aux)
 
 

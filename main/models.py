@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from tastypie import fields, utils
+from django.utils import timezone
 
 # Create your models here.
 
@@ -27,6 +28,10 @@ class Empleado(models.Model):
 	telefono = models.TextField()
 	flota = models.TextField()
 
+
+	def __unicode__(self):
+		return (('%s (%s)') % (self.nombre, self.telefono))
+
 class Credencial(models.Model):
 
 	id_crendencial =models.AutoField(primary_key=True)
@@ -39,7 +44,7 @@ class Credencial(models.Model):
 class Valores(models.Model):
 
 	id_valor = models.AutoField(primary_key=True)
-	date = fields.DateTimeField(readonly=True, default=utils.now)
+	date = fields.DateTimeField(readonly=True, default= timezone.now())
 	sensor_mod = models.BooleanField(default=False)
 	sensor_sound = models.BooleanField(default=False)
 	id_sensor = models.ForeignKey(Sensor, null=True)
