@@ -4,6 +4,7 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 import time
 from tastypie import fields, utils
 from main.models import *
+from datetime import datetime
 
 class ModulosResource(ModelResource):
 
@@ -192,13 +193,13 @@ class ReceiveCredencialResource(ModelResource):
 		authorization= Authorization()
 		list_allowed_methods = ['get']
 
-class AreaEntryResource(ModelResource):
+class ValorEntryResource(ModelResource):
 
 
 	class Meta:
 
 		queryset = Valores.objects.all()
-		resource_name = 'earea'
+		resource_name = 'evalor'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from tastypie import fields, utils
 from django.utils import timezone
-
+from datetime import datetime
 # Create your models here.
 
 
@@ -44,7 +44,7 @@ class Credencial(models.Model):
 class Valores(models.Model):
 
 	id_valor = models.AutoField(primary_key=True)
-	date = fields.DateTimeField(readonly=True, default= timezone.now())
+	date = models.DateTimeField(default= datetime.now)
 	sensor_mod = models.BooleanField(default=False)
 	sensor_sound = models.BooleanField(default=False)
 	id_sensor = models.ForeignKey(Sensor, null=True)
