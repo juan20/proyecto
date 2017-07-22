@@ -229,6 +229,8 @@ class CredencialCheckResource(ModelResource):
 		user = str(bundle.request.GET['use'])
 		pasw = str(bundle.request.GET['pas'])
 		esta = 'OK'	
+		result = {}
+
 		credencia = Credencial.objects.filter(username = user)
 		if len(credencia) != 0:
 			if credencia[0].password != pasw:
@@ -236,4 +238,10 @@ class CredencialCheckResource(ModelResource):
 		else:
 			esta = 'Username invalido'
 
-		return esta
+		result['Estado'] = esta 
+		result['Negocioid'] = 0
+		if esta == 'OK':
+			hasen = HasEmpleado.objects.filter(id_empleado = credencia[0].id_empleado)[0]
+			nego = Negocio.objects.filter(id_negocio = hasen.id_negocio_id)[0]
+			result['Negocioid'] = nego.id_negocio
+		return result
