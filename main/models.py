@@ -37,9 +37,7 @@ class Credencial(models.Model):
 	id_crendencial =models.AutoField(primary_key=True)
 	id_empleado = models.ForeignKey(Empleado, null=True)
 	username = models.TextField()
-	password = models.TextField()	
-
-		
+	password = models.TextField()
 
 class Valores(models.Model):
 

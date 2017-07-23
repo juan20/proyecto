@@ -161,7 +161,7 @@ class ReceiveValoresResource(ModelResource):
 
 
 	class Meta:
-		queryset = Valores.objects.all()
+		queryset = Valores.objects.all().order_by('-id_valor')
 		resource_name = 'rvalor'
 		authorization= Authorization()
 		list_allowed_methods = ['get']
@@ -198,7 +198,7 @@ class ValorEntryResource(ModelResource):
 
 	class Meta:
 
-		queryset = Valores.objects.all()
+		queryset = Valores.objects.all().order_by('-id_valor')
 		resource_name = 'evalor'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
@@ -211,8 +211,8 @@ class ValorEntryResource(ModelResource):
 		sensor = Sensor.objects.filter(id_sensor = id_sensor)[0]
 		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
 		valor.save() 
-
-		return bundle
+		ag = Valores.objects.all().values().order_by('-id_valor')
+		return ag.values
 
 class CredencialCheckResource(ModelResource):
 
