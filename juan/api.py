@@ -21,7 +21,7 @@ class ModulosResource(ModelResource):
 		negocio = int(bundle.request.GET['idne'])
 		area = Area.objects.filter(id_negocio_id = negocio)
 		result = {}
-		result['modulos'] = []
+		result=[]
 
 		for i in area:
 			aux = {}
@@ -32,8 +32,8 @@ class ModulosResource(ModelResource):
 			valo = valos.order_by('-id_valor')[0]
 			aux ['sensormov'] = valo.sensor_mod
 			aux ['sensorson'] = valo.sensor_sound
-			result['modulos'].append(aux)
-
+			result.append(aux) 
+ 
 
 		return result
 
@@ -205,14 +205,14 @@ class ValorEntryResource(ModelResource):
 
 	def dehydrate(self, bundle):
 
-		sensound = bool(bundle.request.GET['sound'])
-		senmod = bool(bundle.request.GET['mod'])
+		sensound = eval(bundle.request.GET['sound'])
+		senmod = eval(bundle.request.GET['mod'])
 		id_sensor = int(bundle.request.GET['ids'])
 		sensor = Sensor.objects.filter(id_sensor = id_sensor)[0]
 		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
 		valor.save() 
 		ag = Valores.objects.all().values().order_by('-id_valor')
-		return ag.values
+		return bundle
 
 class CredencialCheckResource(ModelResource):
 
