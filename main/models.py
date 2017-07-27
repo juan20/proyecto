@@ -15,10 +15,16 @@ class Negocio(models.Model):
 	latitud = models.TextField()
 	longitud = models.TextField(default='')
 
+	def __str__(self):
+		return (('%s (%s)') % (self.nombre, self.telefono))
+
 class Sensor(models.Model):
 
 	id_sensor = models.AutoField(primary_key=True)
 	estado = models.TextField()
+
+	def __str__(self):
+		return (('%s') % (self.id_sensor))
 
 class Empleado(models.Model):
 
@@ -29,7 +35,7 @@ class Empleado(models.Model):
 	flota = models.TextField()
 
 
-	def __unicode__(self):
+	def __str__(self):
 		return (('%s (%s)') % (self.nombre, self.telefono))
 
 class Credencial(models.Model):
@@ -39,6 +45,9 @@ class Credencial(models.Model):
 	username = models.TextField()
 	password = models.TextField()
 
+	def __str__(self):
+		return (('%s (%s)') % (self.id_empleado.nombre, self.username))
+
 class Valores(models.Model):
 
 	id_valor = models.AutoField(primary_key=True)
@@ -47,11 +56,23 @@ class Valores(models.Model):
 	sensor_sound = models.BooleanField(default=False)
 	id_sensor = models.ForeignKey(Sensor, null=True)
 
+	# de eso me gustaria devolver el id y los valores de ambos sensores
+	#haz l mismo
+
+	def __str__(self):
+		return (('%s (%s) (%s)') % (self.id_valor, self.sensor_mod, self.sensor_sound))
+
+
 class Reloj(models.Model):
 
 	id_reloj = models.AutoField(primary_key=True)
 	IMEI = models.TextField()
 	id_empleado = models.ForeignKey(Empleado, null=True) 
+
+	def __str__(self):
+		return (('%s') % (self.IMEI))
+
+
 
 class Area(models.Model):
 
@@ -59,12 +80,20 @@ class Area(models.Model):
 	nombre = models.TextField()
 	estado = models.TextField()
 	id_sensor = models.ForeignKey(Sensor, null=True) 
-	id_negocio = models.ForeignKey(Negocio, null=True) 
+	id_negocio = models.ForeignKey(Negocio, null=True)
+
+	def __str__(self):
+		return (('%s (%s)') % (self.nombre, self.estado))
 
 class HasEmpleado(models.Model):
 
 	id_hasEmpleado = models.AutoField(primary_key=True)
 	id_empleado = models.ForeignKey(Empleado, null=True)
 	id_negocio = models.ForeignKey(Negocio, null=True)  
+
+	def __str__(self):
+		return (('%s (%s)') % (self.id_empleado.nombre, self.id_negocio.nombre))
+	# a esto me referia  con saber si se puede usar valores de la case de sus id y no de su clases por que no se como identificarlos 
+	# por ejemplo devolver el nombre del empleado y el nombre de la empresa
 
 	
