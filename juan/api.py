@@ -246,4 +246,5 @@ class CredencialCheckResource(ModelResource):
 			hasen = HasEmpleado.objects.filter(id_empleado = credencia[0].id_empleado)[0]
 			nego = Negocio.objects.filter(id_negocio = hasen.id_negocio_id)[0]
 			result['Negocioid'] = nego.id_negocio
+			result['Emergencia'] = nego.telefono
 		return result
