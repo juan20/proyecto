@@ -216,6 +216,29 @@ class ValorEntryResource(ModelResource):
 
 		return bundle
 
+class ValorAEntryResource(ModelResource):
+
+
+	class Meta:
+
+		queryset = Valores.objects.all().order_by('-id_valor')
+		resource_name = 'eavalor'
+		authorization = Authorization()
+		list_allowed_methods = ['get']
+
+	def dehydrate(self, bundle):
+
+		sensound = eval(bundle.request.GET['sound'])
+		senmod = eval(bundle.request.GET['mod'])
+		id_area = int(bundle.request.GET['ida'])
+		area = Area.objects.filter(id_area = id_area)[0]
+		sensor = Sensor.objects.filter(id_sensor = area.id_sensor_id)[0]
+		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
+		valor.save() 
+		
+
+		return bundle
+
 class CredencialCheckResource(ModelResource):
 
 
