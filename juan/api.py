@@ -92,7 +92,7 @@ class EstadoResource(ModelResource):
 		queryset = Area.objects.all()
 		resource_name = 'estado'
 		authorization = Authorization()
-		list_allowed_methods = ['post', 'get']
+		list_allowed_methods = ['get']
 
 	def dehydrate(self, bundle):
 
@@ -246,5 +246,5 @@ class CredencialCheckResource(ModelResource):
 			hasen = HasEmpleado.objects.filter(id_empleado = credencia[0].id_empleado)[0]
 			nego = Negocio.objects.filter(id_negocio = hasen.id_negocio_id)[0]
 			result['Negocioid'] = nego.id_negocio
-			result['Emergencia'] = nego.telefono
+			result['Emergencia'] = 'tel:'+ nego.telefono
 		return result
