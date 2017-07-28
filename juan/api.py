@@ -71,7 +71,7 @@ class AreaResource(ModelResource):
 		queryset = Area.objects.all()
 		resource_name = 'area'
 		authorization = Authorization()
-		list_allowed_methods = ['post', 'get']
+		list_allowed_methods = [ 'get']
 
 	def dehydrate(self, bundle):
 
@@ -98,7 +98,7 @@ class EstadoResource(ModelResource):
 
 		nego = int(bundle.request.GET['idne'])
 		area = Area.objects.filter(id_negocio_id= nego)
-		aux = ""
+		aux = "OK"
 		for i in area:
 			if i.estado == "peligro":
 				aux = "Error"
