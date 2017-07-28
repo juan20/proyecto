@@ -80,6 +80,7 @@ class AreaResource(ModelResource):
 		result = Area.objects.filter(id_area = area)[0] 
 		result.estado = estad
 		result.save() 
+
 		return result.estado
 
 
@@ -211,7 +212,8 @@ class ValorEntryResource(ModelResource):
 		sensor = Sensor.objects.filter(id_sensor = id_sensor)[0]
 		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
 		valor.save() 
-		ag = Valores.objects.all().values().order_by('-id_valor')
+		
+
 		return bundle
 
 class CredencialCheckResource(ModelResource):
