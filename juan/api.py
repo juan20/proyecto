@@ -230,7 +230,7 @@ class ValorEntryResource(ModelResource):
 		id_sensor = int(bundle.request.GET['ids'])
 		sensor = Sensor.objects.filter(id_sensor = id_sensor)[0]
 		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
-		#addLog(sensor,'UNKNOW',str(senmod),str(sensound))
+		addLog(sensor,'UNKNOW',str(senmod),str(sensound))
 		valor.save() 
 		
 
