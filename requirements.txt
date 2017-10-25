@@ -3,3 +3,4 @@ django-tastypie
 South
 gunicorn
 django-jet
+pyrebase

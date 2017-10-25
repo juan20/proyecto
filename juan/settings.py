@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +24,9 @@ SECRET_KEY = '=q)or_%*vp8+r=x$@bji$@s#_tbc_hjfjy-^1y%@de&(iaf9@#'
 DEBUG = True
 
 ALLOWED_HOSTS = [u'jjs.herokuapp.com', u'localhost']
+
+
+
 
 
 # Application definition
@@ -70,6 +74,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'juan.wsgi.application'
+
+
+
 
 
 # Database
