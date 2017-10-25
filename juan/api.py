@@ -5,6 +5,25 @@ import time
 from tastypie import fields, utils
 from main.models import *
 from datetime import datetime
+import pyrebase
+
+#Definicion de la funcion que deben de ejecutar cada vez que se actualice uno de los valores
+def addLog(id, nombre, estadomov, estadoson):
+    fecha_actual = time.strftime("%d/%m/%Y")
+    data = {"id": id , "nombre":nombre, "estadomov":estadomov, "estadoson":estadoson, "fecha":fecha_actual}
+    db.child("Data").push(data)
+    print("Data enviada...")
+
+
+config = {
+  "apiKey": "AIzaSyCHmb3CoBZwJO9hcPgZjKsHH9W18u2Pcd0",
+  "authDomain": "jjsecurity-600f1.firebaseapp.com",
+  "databaseURL": "https://jjsecurity-600f1.firebaseio.com",
+  "storageBucket": "jjsecurity-600f1.appspot.com"
+}
+firebase = pyrebase.initialize_app(config)
+db = firebase.database()
+
 
 class ModulosResource(ModelResource):
 
@@ -211,6 +230,7 @@ class ValorEntryResource(ModelResource):
 		id_sensor = int(bundle.request.GET['ids'])
 		sensor = Sensor.objects.filter(id_sensor = id_sensor)[0]
 		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
+		addLog(sensor,'UNKNOW',senmod,sensound)
 		valor.save() 
 		
 

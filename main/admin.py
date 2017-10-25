@@ -22,10 +22,14 @@ class HasEmpleadoInline(admin.TabularInline):
 class ValorInline(admin.TabularInline):
 	model  = Valores
 
+class AreaInline(admin.TabularInline):
+	model  = Area
+
 class NegocioAdmin(admin.ModelAdmin):
 	model = Negocio
 	inlines = [
-		HasEmpleadoInline
+		HasEmpleadoInline,
+		AreaInline,
 	]
 
 class CredencialAdmin(admin.ModelAdmin):
@@ -33,7 +37,9 @@ class CredencialAdmin(admin.ModelAdmin):
 
 class SensorAdmin(admin.ModelAdmin):
 	model = Sensor
-	inlines = [ValorInline]
+	inlines = [ValorInline,
+		AreaInline,
+		]
 
 class RelojAdmin(admin.ModelAdmin):
 	model = Reloj
@@ -71,6 +77,7 @@ admin.site.register(Valores, ValorAdmin)
 admin.site.register(Sensor, SensorAdmin)
 admin.site.register(Reloj, RelojAdmin)
 admin.site.register(HasEmpleado, HasEmpleadoAdmin)
+admin.site.register(Area, AreaAdmin)
 
 
 

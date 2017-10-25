@@ -56,9 +56,7 @@ class Valores(models.Model):
 	sensor_sound = models.BooleanField(default=False)
 	id_sensor = models.ForeignKey(Sensor, null=True)
 
-	# de eso me gustaria devolver el id y los valores de ambos sensores
-	#haz l mismo
-
+	
 	def __str__(self):
 		return (('%s (%s) (%s)') % (self.id_valor, self.sensor_mod, self.sensor_sound))
 
