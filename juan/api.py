@@ -253,7 +253,7 @@ class ValorAEntryResource(ModelResource):
 		id_area = int(bundle.request.GET['ida'])
 		area = Area.objects.filter(id_area = id_area)[0]
 		sensor = Sensor.objects.filter(id_sensor = area.id_sensor_id)[0]
-		valor = Valores(sensor_mod = senmod, sensor_sound = sensound, id_sensor = sensor)
+		valor = Valores(sensor_mod = senmod_id, sensor_sound = sensound, id_sensor = sensor)
 		valor.save() 
 		
 
