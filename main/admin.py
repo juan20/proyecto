@@ -46,10 +46,7 @@ class RelojAdmin(admin.ModelAdmin):
 
 class AreaAdmin(admin.ModelAdmin):
 	model = Area
-	inlines = [
-		SensorInline,
-		NegocioInline,
-	]
+	
 
 class ValorAdmin(admin.ModelAdmin): 
 	model = Valores
