@@ -53,7 +53,6 @@ class ModulosResource(ModelResource):
 			aux ['sensorson'] = valo.sensor_sound
 			result.append(aux) 
  
-
 		return result
 
 class NegocioResource(ModelResource):
@@ -77,8 +76,6 @@ class NegocioResource(ModelResource):
 		sensores = Area.objects.filter(id_negocio_id = negocio)
 		result['sensores'] = len(sensores)
 		result['servidores'] = 2
-
-
 
 		return result
 
@@ -233,7 +230,6 @@ class ValorEntryResource(ModelResource):
 		addLog(str(sensor),'UNKNOW',str(senmod),str(sensound))
 		valor.save() 
 		
-
 		return bundle
 
 class ValorAEntryResource(ModelResource):
@@ -256,7 +252,6 @@ class ValorAEntryResource(ModelResource):
 		valor = Valores(sensor_mod = senmod_id, sensor_sound = sensound, id_sensor = sensor)
 		valor.save() 
 		
-
 		return bundle
 
 class CredencialCheckResource(ModelResource):
