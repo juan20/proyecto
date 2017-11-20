@@ -288,55 +288,60 @@ class CredencialCheckResource(ModelResource):
 			result['Emergencia'] = 'tel:'+ nego.telefono
 		return result
 
-#class NegocioTotal(ModelResource):
-#
-#
-#	class Meta:
-#
-#		queryset = Negocio.objects.all()
-#		resource_name = 'negid'
-#		authorization = Authorization()
-#		list_allowed_methods = [ 'get']
-#
-#	def dehydrate(self, bundle):
-#
-#		nego = int(bundle.request.GET['idne'])
-#		hasemp = HasEmpleado.objects.filter(id_negocio = nego)
-#		areas   = Area.objects.filter(id_negocio = nego)
-#		result = {}
-#		has = {}
-#		are = {}
-#
-#		for i in hasemp:
-#			has['id_hasempleado'] = i.id_hasEmpleado
-#			has['id_empleado'] = i.id_empleado
-#			emp = Empleado.objects.filter(id_empleado = i.id_empleado_id)[0]
-#			has['nombre_empleado'] = emp.nombre
-#			has['direccion_empleado'] = emp.direccion
-#			has['telefono_empleado'] = emp.telefono
-#			has['flota_empleado'] = emp.flota
-#			cre = Credencial.objects.filter(id_empleado = i.id_empleado_id)[0].
-#			has['id_credencial'] = cre.id_crendencial
-#			has['user_credencial'] = cre.username
-#			has['password_credencial'] = cre.password
-#
-#		result['hasempleado'] = has
-#
-#		for ia in areas:
-#			are['id_area'] = ia.id_area
-#			are['nomre_area'] = ia.areas
-#			are['estado_area'] = ia.estado
-#			sen = Sensor.objects.filter(id_sensor = ia.id_sensor_id)[0]
-#			are['id_sensor_area']= sen.id_sensor
-#			are['estado_sensor'] = sen.estado
-#			val = Valores.objects.filter(id_sensor = sen.id_sensor_id)
-#			valo= {}
-#			for iva in val:
-#				valo['id_valor'] = iva.id_valor
-#				valo['date'] = iva.date
-#				valo['sensor_mod'] = iva.sensor_mod
-#				valo['sensor_sound'] = iva.sensor_sound
-#			are['valores'] = valo
-#		result['areas'] = are
-#
-#		return result
+class NegocioTotal(ModelResource):
+
+
+	class Meta:
+
+		queryset = Negocio.objects.all()
+		resource_name = 'negid'
+		authorization = Authorization()
+		list_allowed_methods = [ 'get']
+
+	def dehydrate(self, bundle):
+
+		nego = int(bundle.request.GET['idne'])
+		hasemp = HasEmpleado.objects.filter(id_negocio_id = nego)
+		areas = Area.objects.filter(id_negocio_id = nego)
+		
+		result = []
+		
+		has = {}
+		
+		are = {}
+		for i in hasemp:
+			has['id_hasempleado'] = i.id_hasEmpleado
+			has['id_empleado'] = i.id_empleado
+			emp = Empleado.objects.filter(id_empleado = i.id_empleado_id)[0]
+			has['nombre_empleado'] = emp.nombre
+			has['direccion_empleado'] = emp.direccion
+			has['telefono_empleado'] = emp.telefono
+			has['flota_empleado'] = emp.flota
+			cre = Credencial.objects.filter(id_empleado = i.id_empleado_id)[0]
+			has['id_credencial'] = cre.id_crendencial
+			has['user_credencial'] = cre.username
+			has['password_credencial'] = cre.password
+			result.append(has)
+			
+
+
+		for ia in areas:
+			are['id_area'] = ia.id_area
+			are['nomre_area'] = ia.nombre
+			are['estado_area'] = ia.estado
+			sen = Sensor.objects.filter(id_sensor = ia.id_sensor_id)[0]
+			are['id_sensor_area']= sen.id_sensor
+			are['estado_sensor'] = sen.estado
+			val = Valores.objects.filter(id_sensor = sen.id_sensor)
+			valo= {}
+			data= []
+			for iva in val:
+				valo['id_valor'] = iva.id_valor
+				valo['date'] = iva.date
+				valo['sensor_mod'] = iva.sensor_mod
+				valo['sensor_sound'] = iva.sensor_sound
+				data.append(valo)
+			are['valores'] = data
+			result.append(are)
+		
+		return result
