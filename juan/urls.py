@@ -41,6 +41,7 @@ recive_valores_resource = ReceiveValoresResource()
 valor_entry_resource = ValorEntryResource()
 crendial_check_resource = CredencialCheckResource()
 valor_aentry_resource = ValorAEntryResource()
+#negocio_total = NegocioTotal()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -59,6 +60,7 @@ urlpatterns = [
     url(r'^api/', include(valor_entry_resource.urls)),
     url(r'^api/', include(crendial_check_resource.urls)),
     url(r'^api/', include(valor_aentry_resource.urls)),
+    #url(r'^api/', include(negocio_total.urls)),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^$', index),

@@ -10,10 +10,10 @@ from datetime import datetime
 class Negocio(models.Model):
 
 	id_negocio = models.AutoField(primary_key=True)	
-	nombre = models.TextField(default='')
-	telefono = models.TextField()
-	latitud = models.TextField()
-	longitud = models.TextField(default='')
+	nombre = models.TextField(default='', null=True, blank=True)
+	telefono = models.TextField(null=True, blank=True)
+	latitud = models.TextField(null=True, blank=True)
+	longitud = models.TextField(default='',null=True, blank=True)
 
 	def __str__(self):
 		return (('%s (%s)') % (self.nombre, self.telefono))
@@ -21,7 +21,7 @@ class Negocio(models.Model):
 class Sensor(models.Model):
 
 	id_sensor = models.AutoField(primary_key=True)
-	estado = models.TextField()
+	estado = models.TextField(null=True, blank=True)
 
 	def __str__(self):
 		return (('%s') % (self.id_sensor))
@@ -29,10 +29,10 @@ class Sensor(models.Model):
 class Empleado(models.Model):
 
 	id_empleado = models.AutoField(primary_key=True)
-	nombre = models.TextField()
-	direccion = models.TextField()
-	telefono = models.TextField()
-	flota = models.TextField()
+	nombre = models.TextField(null=True, blank=True)
+	direccion = models.TextField(null=True, blank=True)
+	telefono = models.TextField(null=True, blank=True)
+	flota = models.TextField(null=True, blank=True)
 
 
 	def __str__(self):
@@ -41,9 +41,9 @@ class Empleado(models.Model):
 class Credencial(models.Model):
 
 	id_crendencial =models.AutoField(primary_key=True)
-	id_empleado = models.ForeignKey(Empleado, null=True)
-	username = models.TextField()
-	password = models.TextField()
+	id_empleado = models.ForeignKey(Empleado, null=True, blank=True)
+	username = models.TextField(null=True, blank=True)
+	password = models.TextField(null=True, blank=True)
 
 	def __str__(self):
 		return (('%s (%s)') % (self.id_empleado.nombre, self.username))
@@ -54,7 +54,7 @@ class Valores(models.Model):
 	date = models.DateTimeField(default= datetime.now)
 	sensor_mod = models.BooleanField(default=False)
 	sensor_sound = models.BooleanField(default=False)
-	id_sensor = models.ForeignKey(Sensor, null=True)
+	id_sensor = models.ForeignKey(Sensor, null=True, blank=True)
 
 	
 	def __str__(self):
@@ -64,8 +64,8 @@ class Valores(models.Model):
 class Reloj(models.Model):
 
 	id_reloj = models.AutoField(primary_key=True)
-	IMEI = models.TextField()
-	id_empleado = models.ForeignKey(Empleado, null=True) 
+	IMEI = models.TextField(null=True, blank=True)
+	id_empleado = models.ForeignKey(Empleado, null=True, blank=True) 
 
 	def __str__(self):
 		return (('%s') % (self.IMEI))
@@ -75,10 +75,10 @@ class Reloj(models.Model):
 class Area(models.Model):
 
 	id_area = models.AutoField(primary_key=True)
-	nombre = models.TextField()
-	estado = models.TextField()
-	id_sensor = models.ForeignKey(Sensor, null=True) 
-	id_negocio = models.ForeignKey(Negocio, null=True)
+	nombre = models.TextField(null=True, blank=True)
+	estado = models.TextField(null=True, blank=True)
+	id_sensor = models.ForeignKey(Sensor, null=True, blank=True) 
+	id_negocio = models.ForeignKey(Negocio, null=True, blank=True)
 
 	def __str__(self):
 		return (('%s (%s)') % (self.nombre, self.estado))
@@ -86,8 +86,8 @@ class Area(models.Model):
 class HasEmpleado(models.Model):
 
 	id_hasEmpleado = models.AutoField(primary_key=True)
-	id_empleado = models.ForeignKey(Empleado, null=True)
-	id_negocio = models.ForeignKey(Negocio, null=True)  
+	id_empleado = models.ForeignKey(Empleado, null=True, blank=True)
+	id_negocio = models.ForeignKey(Negocio, null=True, blank=True)  
 
 	def __str__(self):
 		return (('%s (%s)') % (self.id_empleado.nombre, self.id_negocio.nombre))
