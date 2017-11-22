@@ -303,12 +303,11 @@ class NegocioTotal(ModelResource):
 		nego = int(bundle.request.GET['idne'])
 		hasemp = HasEmpleado.objects.filter(id_negocio_id = nego)
 		areas = Area.objects.filter(id_negocio_id = nego)
-		
 		result = []
-		
 		has = {}
-		
 		are = {}
+		print ("hasemp klk")
+		print (hasemp)
 		for i in hasemp:
 			has['id_hasempleado'] = i.id_hasEmpleado
 			has['id_empleado'] = i.id_empleado
@@ -323,8 +322,6 @@ class NegocioTotal(ModelResource):
 			has['password_credencial'] = cre.password
 			result.append(has)
 			
-
-
 		for ia in areas:
 			are['id_area'] = ia.id_area
 			are['nomre_area'] = ia.nombre
@@ -333,9 +330,10 @@ class NegocioTotal(ModelResource):
 			are['id_sensor_area']= sen.id_sensor
 			are['estado_sensor'] = sen.estado
 			val = Valores.objects.filter(id_sensor = sen.id_sensor)
-			valo= {}
+			
 			data= []
 			for iva in val:
+				valo= {}
 				valo['id_valor'] = iva.id_valor
 				valo['date'] = iva.date
 				valo['sensor_mod'] = iva.sensor_mod
