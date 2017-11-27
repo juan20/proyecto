@@ -95,6 +95,10 @@ class AreaResource(ModelResource):
 		area = int(bundle.request.GET['ida'])
 		estad = str(bundle.request.GET['est'])
 		result = Area.objects.filter(id_area = area)[0] 
+		sensor = Sensor.objects.filter(id_sensor = result.id_sensor)[0]
+		valor = Valores(sensor_mod = False, sensor_sound = False, id_sensor = sensor)
+		addLog(str(sensor),'UNKNOW',str(senmod),str(sensound))
+		valor.save()
 		result.estado = estad
 		result.save() 
 
@@ -304,11 +308,11 @@ class NegocioTotal(ModelResource):
 		hasemp = HasEmpleado.objects.filter(id_negocio_id = nego)
 		areas = Area.objects.filter(id_negocio_id = nego)
 		result = []
-		has = {}
-		are = {}
 		print ("hasemp klk")
 		print (hasemp)
 		for i in hasemp:
+
+			has = {}
 			has['id_hasempleado'] = i.id_hasEmpleado
 			has['id_empleado'] = i.id_empleado
 			emp = Empleado.objects.filter(id_empleado = i.id_empleado_id)[0]
@@ -323,6 +327,7 @@ class NegocioTotal(ModelResource):
 			result.append(has)
 			
 		for ia in areas:
+			are = {}
 			are['id_area'] = ia.id_area
 			are['nomre_area'] = ia.nombre
 			are['estado_area'] = ia.estado
@@ -330,7 +335,11 @@ class NegocioTotal(ModelResource):
 			are['id_sensor_area']= sen.id_sensor
 			are['estado_sensor'] = sen.estado
 			val = Valores.objects.filter(id_sensor = sen.id_sensor)
-			
+			print("total valore: ")
+			print(len(val))
+			print(val)
+			print("ultimo valor: ")
+			print(val[len(val)-1])
 			data= []
 			for iva in val:
 				valo= {}
