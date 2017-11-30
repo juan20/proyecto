@@ -88,7 +88,7 @@ class AreaResource(ModelResource):
 		queryset = Area.objects.all()
 		resource_name = 'area'
 		authorization = Authorization()
-		list_allowed_methods = [ 'get']
+		list_allowed_methods = ['get']
 
 	def dehydrate(self, bundle):
 
