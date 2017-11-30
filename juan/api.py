@@ -134,7 +134,7 @@ class ReceiveSensorResource(ModelResource):
 	class Meta:
 		queryset = Sensor.objects.all()
 		resource_name = 'receive'
-		authorization= Authorization()
+		authorization = Authorization()
 		list_allowed_methods = ['get']
 
 class ReceiveAreaResource(ModelResource):
@@ -143,11 +143,10 @@ class ReceiveAreaResource(ModelResource):
 	class Meta:
 		queryset = Area.objects.all()
 		resource_name = 'rarea'
-		authorization= Authorization()
+		authorization = Authorization()
 		list_allowed_methods = ['get']
 
 	def dehydrate(self, bundle):
-
 
 		area = Area.objects.all()
 		result = {}
