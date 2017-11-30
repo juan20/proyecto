@@ -93,12 +93,12 @@ class AreaResource(ModelResource):
 
 		are = int(bundle.request.GET['sa'])
 		estad = str(bundle.request.GET['est'])
-		result = Area.objects.filter(id_area = are)[0]
+		area = Area.objects.filter(id_area = are)[0]
 		sensor = Sensor.objects.filter(id_sensor = result.id_sensor)[0]
 		valor = Valores(sensor_mod = False, sensor_sound = False, id_sensor = sensor)
 		addLog(str(sensor),'UNKNOW',str(senmod),str(sensound))
 		valor.save()
-		result.estado = estad
+		area.estado = estad
 		result.save() 
 
 		return result.estado
