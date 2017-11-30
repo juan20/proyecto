@@ -53,7 +53,7 @@ class ModulosResource(ModelResource):
 			aux ['sensormov'] = valo.sensor_mod
 			aux ['sensorson'] = valo.sensor_sound
 			result.append(aux) 
- 
+
 		return result
 
 class NegocioResource(ModelResource):
