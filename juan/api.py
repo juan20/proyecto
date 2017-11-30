@@ -146,20 +146,6 @@ class ReceiveAreaResource(ModelResource):
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
-	def dehydrate(self, bundle):
-
-		area = Area.objects.all()
-		result = {}
-		for i in area:
-			print (i.id_area)
-			result['id_area'] = i.id_area
-			result['nombre'] = i.nombre
-			result['estado'] = i.estado
-			result['id_sensor'] = i.id_sensor_id
-			result['id_negocio'] = i.id_negocio_id
-
-		return result
-
 class ReceiveNegocioResource(ModelResource):
 
 
