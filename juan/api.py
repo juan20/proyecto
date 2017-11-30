@@ -92,9 +92,8 @@ class AreaResource(ModelResource):
 	def dehydrate(self, bundle):
 
 		are = int(bundle.request.GET['sa'])
-		negocio = int(bundle.request.GET['id'])
 		estad = str(bundle.request.GET['est'])
-		result = Area.objects.filter(id_area = sa)[0]
+		result = Area.objects.filter(id_area = are)[0]
 		sensor = Sensor.objects.filter(id_sensor = result.id_sensor)[0]
 		valor = Valores(sensor_mod = False, sensor_sound = False, id_sensor = sensor)
 		addLog(str(sensor),'UNKNOW',str(senmod),str(sensound))
