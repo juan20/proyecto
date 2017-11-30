@@ -148,7 +148,6 @@ class ReceiveAreaResource(ModelResource):
 
 	def dehydrate(self, bundle):
 
-		
 		area = Area.objects.all()
 		result = {}
 		for i in area:
