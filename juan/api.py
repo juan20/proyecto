@@ -99,9 +99,9 @@ class AreaResource(ModelResource):
 		addLog(str(sensor),'UNKNOW',str(senmod),str(sensound))
 		valor.save()
 		area.estado = estad
-		result.save() 
+		area.save() 
 
-		return result.estado
+		return area.estado
 
 
 class EstadoResource(ModelResource):
