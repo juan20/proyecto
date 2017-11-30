@@ -91,7 +91,7 @@ class AreaResource(ModelResource):
 
 	def dehydrate(self, bundle):
 
-		are = int(bundle.result.GET['sa'])
+		are = int(bundle.request.GET['sa'])
 		negocio = int(bundle.request.GET['id'])
 		estad = str(bundle.request.GET['est'])
 		result = Area.objects.filter(id_area = sa)[0]
