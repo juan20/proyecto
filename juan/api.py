@@ -92,6 +92,7 @@ class AreaResource(ModelResource):
 	def dehydrate(self, bundle):
 
 		negocio = int(bundle.request.GET['id'])
+
 		estad = str(bundle.request.GET['est'])
 		result = Area.objects.filter(id_area = negocio)[0] 
 		sensor = Sensor.objects.filter(id_sensor = result.id_sensor_id)[0]
@@ -147,9 +148,11 @@ class ReceiveAreaResource(ModelResource):
 
 	def dehydrate(self, bundle):
 
+
 		area = Area.objects.all()
 		result = {}
 		for i in area:
+			print (i.id_area)
 			result['id_area'] = i.id_area
 			result['nombre'] = i.nombre
 			result['estado'] = i.estado
