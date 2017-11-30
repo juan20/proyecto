@@ -82,7 +82,6 @@ class NegocioResource(ModelResource):
 
 class AreaResource(ModelResource):
 
-
 	class Meta:
 
 		queryset = Area.objects.all()
@@ -92,9 +91,9 @@ class AreaResource(ModelResource):
 
 	def dehydrate(self, bundle):
 
-		area = int(bundle.request.GET['ida'])
+		are = int(bundle.request.GET['ida'])
 		estad = str(bundle.request.GET['est'])
-		result = Area.objects.filter(id_area = area)[0] 
+		result = Area.objects.filter(id_area = are)[0] 
 		sensor = Sensor.objects.filter(id_sensor = result.id_sensor_id)[0]
 		valor = Valores(sensor_mod = False, sensor_sound = False, id_sensor = sensor)
 		addLog(str(sensor),'UNKNOW',str(senmod),str(sensound))
