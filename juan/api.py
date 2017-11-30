@@ -85,7 +85,7 @@ class AreaResource(ModelResource):
 	class Meta:
 
 		queryset = Area.objects.all()
-		resource_name = 'area'
+		resource_name = 'sarea'
 		authorization = Authorization()
 		list_allowed_methods = ['get']
 
